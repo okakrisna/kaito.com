@@ -7992,14 +7992,35 @@ jQuery(document).ready(function ($) {
         </script>
         <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
         <script>
-// Load data from Supabase instead of JSON file
+// Load data from Supabase with localStorage cache for instant display
 (async function() {
     try {
-        console.log('[' + new Date().toLocaleTimeString() + '] 🚀 Loading from Supabase...');
+        var CACHE_KEY = 'timeless_content_cache';
+        var CACHE_TIMESTAMP_KEY = 'timeless_content_timestamp';
+        var CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
 
-        // Clear service worker cache if exists to ensure fresh data
+        // Check if we have cached data
+        var cachedData = localStorage.getItem(CACHE_KEY);
+        var cacheTimestamp = localStorage.getItem(CACHE_TIMESTAMP_KEY);
+        var now = Date.now();
+
+        // If cache exists and is fresh, use it immediately
+        if (cachedData && cacheTimestamp) {
+            var age = now - parseInt(cacheTimestamp);
+            if (age < CACHE_DURATION) {
+                console.log('⚡ Using cached data (age: ' + Math.round(age/1000) + 's)');
+                updateContent(JSON.parse(cachedData));
+                // Still fetch from Supabase in background to update cache
+                console.log('🔄 Fetching fresh data in background...');
+            } else {
+                console.log('🕐 Cache expired (age: ' + Math.round(age/1000) + 's)');
+            }
+        } else {
+            console.log('📭 No cache found');
+        }
+
+        // Clear service worker cache if exists
         if ('caches' in window) {
-            console.log('🧹 Clearing service worker cache...');
             caches.keys().then(function(names) {
                 names.forEach(function(name) {
                     caches.delete(name);
@@ -8007,16 +8028,15 @@ jQuery(document).ready(function ($) {
             });
         }
 
-        // Remove all DCE template fix styles that contain hardcoded background images
-        console.log('🧹 Removing DCE template fix styles...');
+        // Remove DCE template fix styles
         var dceStyles = document.querySelectorAll('style[id^="dce-template-fix-"]');
         dceStyles.forEach(function(style) {
             if (style.innerHTML.includes('background-image:') || style.innerHTML.includes('background:')) {
                 style.remove();
-                console.log('  ✓ Removed:', style.id);
             }
         });
 
+        console.log('🚀 Loading from Supabase...');
         const supabase = window.supabase.createClient(
             'https://sdcakojgzfscudadzrfg.supabase.co',
             'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNkY2Frb2pnemZzY3VkYWR6cmZnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM4ODAxMjEsImV4cCI6MjA3OTQ1NjEyMX0.7r240PEhv8Skda-zqOM7o2u9PpHnFWWECKIGxoBvnP4'
@@ -8029,22 +8049,34 @@ jQuery(document).ready(function ($) {
 
         if (error) {
             console.error('[ERROR] Supabase error:', error);
-            console.log('[FALLBACK] Using JSON file');
-            fetch('../data/content.json?t=' + Date.now()).then(function(r){return r.json()}).then(updateContent);
+            if (!cachedData) {
+                console.log('[FALLBACK] Using JSON file');
+                fetch('../data/content.json?t=' + Date.now()).then(function(r){return r.json()}).then(updateContent);
+            }
             return;
         }
 
-        console.log('[SUCCESS] Data loaded from Supabase:');
-        console.log('- Couple Names:', data.couple_names);
-        console.log('- Wedding Title:', data.wedding_title);
-        console.log('- Updated At:', data.updated_at);
+        console.log('✅ Fresh data loaded from Supabase');
 
-        // Use Supabase data
-        updateContent(data);
+        // Save to cache
+        localStorage.setItem(CACHE_KEY, JSON.stringify(data));
+        localStorage.setItem(CACHE_TIMESTAMP_KEY, now.toString());
+        console.log('💾 Saved to cache');
+
+        // Update content (only if we didn't use cache, or if data changed)
+        if (!cachedData || JSON.stringify(data) !== cachedData) {
+            console.log('🔄 Applying fresh data');
+            updateContent(data);
+        } else {
+            console.log('✓ Data unchanged, already displayed');
+        }
 
     } catch (err) {
-        console.error('[CATCH] Supabase error:', err);
-        fetch('../data/content.json?t=' + Date.now()).then(function(r){return r.json()}).then(updateContent);
+        console.error('[CATCH] Error:', err);
+        var cachedData = localStorage.getItem('timeless_content_cache');
+        if (!cachedData) {
+            fetch('../data/content.json?t=' + Date.now()).then(function(r){return r.json()}).then(updateContent);
+        }
     }
 })();
 
