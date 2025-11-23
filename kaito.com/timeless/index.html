@@ -92,6 +92,77 @@
                 transition: opacity 0.6s ease-in-out;
             }
 
+            /* Hide ALL text content until database content loaded */
+            #bride-name,
+            #groom-name,
+            #hero-title,
+            #hero-title-2,
+            #wedding-date-main,
+            .wedding-date,
+            .bride-name-text,
+            .groom-name-text,
+            .couple-names,
+            .wedding-title,
+            .wedding-location,
+            .rsvp-text,
+            .groom-full-name,
+            .bride-full-name,
+            .groom-parents,
+            .groom-description,
+            .bride-label,
+            .bride-parents,
+            .bride-description,
+            .journey-title,
+            .holy-matrimony-details,
+            .holy-matrimony-address,
+            .wedding-reception-details,
+            .wedding-reception-address,
+            .countdown-title,
+            .save-the-date-button,
+            .streaming-title,
+            .streaming-date,
+            .streaming-button,
+            .prewedding-title,
+            .gallery-couple-names {
+                opacity: 0 !important;
+                transition: opacity 0.6s ease-in-out;
+            }
+
+            /* Show ALL text content after database loaded */
+            body.db-content-loaded #bride-name,
+            body.db-content-loaded #groom-name,
+            body.db-content-loaded #hero-title,
+            body.db-content-loaded #hero-title-2,
+            body.db-content-loaded #wedding-date-main,
+            body.db-content-loaded .wedding-date,
+            body.db-content-loaded .bride-name-text,
+            body.db-content-loaded .groom-name-text,
+            body.db-content-loaded .couple-names,
+            body.db-content-loaded .wedding-title,
+            body.db-content-loaded .wedding-location,
+            body.db-content-loaded .rsvp-text,
+            body.db-content-loaded .groom-full-name,
+            body.db-content-loaded .bride-full-name,
+            body.db-content-loaded .groom-parents,
+            body.db-content-loaded .groom-description,
+            body.db-content-loaded .bride-label,
+            body.db-content-loaded .bride-parents,
+            body.db-content-loaded .bride-description,
+            body.db-content-loaded .journey-title,
+            body.db-content-loaded .holy-matrimony-details,
+            body.db-content-loaded .holy-matrimony-address,
+            body.db-content-loaded .wedding-reception-details,
+            body.db-content-loaded .wedding-reception-address,
+            body.db-content-loaded .countdown-title,
+            body.db-content-loaded .save-the-date-button,
+            body.db-content-loaded .streaming-title,
+            body.db-content-loaded .streaming-date,
+            body.db-content-loaded .streaming-button,
+            body.db-content-loaded .prewedding-title,
+            body.db-content-loaded .gallery-couple-names {
+                opacity: 1 !important;
+            }
+
             /* Show sections and restore backgrounds after database content is applied */
             body.db-content-loaded .background-section-1,
             body.db-content-loaded .background-section-1 *,
