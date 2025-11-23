@@ -8549,6 +8549,12 @@ function updateContent(data) {
     img.src = imageWithCache;
   }
   
+  // Update hero background image (sticky header)
+  if(data.hero_background_image){
+    console.log('🎯 Updating hero_background_image');
+    updateBackgroundImage('5de39555', data.hero_background_image, 'elementor-element-5de39555');
+  }
+
   if(data.background_section_1){updateBackgroundImage('0892a8b', data.background_section_1, 'background-section-1', data.background_section_1_size, data.background_section_1_position);}
   if(data.background_section_2){updateBackgroundImage('2e297329', data.background_section_2, 'background-section-2', data.background_section_2_size, data.background_section_2_position);}
   if(data.background_section_3){updateBackgroundImage('1ae512c4', data.background_section_3, 'background-section-3', data.background_section_3_size, data.background_section_3_position);}
