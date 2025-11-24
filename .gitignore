@@ -1,49 +1,5 @@
-# Repo ringan tanpa merusak tampilan
-
-# 1) Hilangkan mirrored vendor assets yang tidak diperlukan
-kaito.com/elegant/www.youtube.com/
-kaito.com/elegant/www.google.com/
-kaito.com/elegant/static.doubleclick.net/
-kaito.com/elegant/play.google.com/
-kaito.com/kaito.com/elegant/kaito.com/www.youtube.com/
-kaito.com/kaito.com/elegant/kaito.com/www.google.com/
-kaito.com/kaito.com/elegant/kaito.com/static.doubleclick.net/
-kaito.com/kaito.com/elegant/kaito.com/play.google.com/
-
-# 2) Ignore uploads secara umum, lalu whitelist gambar yang dipakai
-kaito.com/wp-content/uploads/**
-kaito.com/elegant/kaito.com/wp-content/uploads/**
-
-# Whitelist: Elegant (default/used)
-!kaito.com/elegant/kaito.com/wp-content/uploads/2024/07/Fotno-Slide-Hitungan-Hari-2-Large-SHERLY-1.jpeg
-!kaito.com/elegant/kaito.com/wp-content/uploads/2024/07/Foto-SLide-Gallery-1-Large-SHERLY-1-1.jpeg
-!kaito.com/elegant/kaito.com/wp-content/uploads/2024/07/Foto-Slide-Gallery-15-Large-SHERLY.jpeg
-
-# Whitelist: Timeless (digunakan di pages.json)
-!kaito.com/wp-content/uploads/2024/07/Timeless-00017-1.jpeg
-!kaito.com/wp-content/uploads/2024/07/Timeless-00016-1.jpeg
-!kaito.com/wp-content/uploads/2024/07/Timeless-00003-1.jpeg
-!kaito.com/wp-content/uploads/2024/07/Timeless-00005-1.jpeg
-!kaito.com/wp-content/uploads/2024/07/Timeless-00030-1.jpeg
-!kaito.com/wp-content/uploads/2024/07/Timeless-00034-1.jpeg
-!kaito.com/wp-content/uploads/2024/07/Timeless-00027-1.jpeg
-!kaito.com/wp-content/uploads/2024/07/Timeless-00026-1.jpeg
-!kaito.com/wp-content/uploads/2024/07/Timeless-00041-1.jpeg
-!kaito.com/wp-content/uploads/2024/07/Timeless-00043-1.jpeg
-!kaito.com/wp-content/uploads/2024/07/Timeless-00025-1.jpeg
-!kaito.com/wp-content/uploads/2024/07/Timeless-00035-1.jpeg
-!kaito.com/wp-content/uploads/2024/07/Timeless-00002-1.jpeg
-!kaito.com/wp-content/uploads/2024/07/Timeless-00021.jpeg
-!kaito.com/wp-content/uploads/2024/07/Timeless-00028.jpeg
-!kaito.com/wp-content/uploads/2024/07/Timeless-00036.jpeg
-
-# Whitelist: Custom images yang dipakai
-!kaito.com/wp-content/uploads/custom/20251120_124933_Untuk info Pricelist chat whatsapp only….jpg
-!kaito.com/wp-content/uploads/custom/20251120_102802_test gambar.jpg
-!kaito.com/wp-content/uploads/custom/20251120_103656_test gambar.jpg
-!kaito.com/wp-content/uploads/custom/20251118_133144_test gambar.jpg
-
-# 3) Development caches & OS files
+# Keep repo complete: include all assets
+# Only ignore typical development caches and OS files
 __pycache__/
 *.pyc
 .vscode/
